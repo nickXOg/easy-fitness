@@ -1,0 +1,17 @@
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\dto\RegisterRequest.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\dto\LoginRequest.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\AuthEntryPointJwt.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\AuthServiceApplication.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\dto\UserDTO.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\UserDetailsImpl.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\repository\RoleRepository.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\JwtUtils.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\AuthTokenFilter.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\UserDetailsServiceImpl.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\controller\AuthController.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\security\SecurityConfig.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\entity\User.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\dto\JwtResponse.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\entity\Role.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\service\AuthService.java
+C:\Users\Nick\easy-fitness\auth-service\src\main\java\com\healthfitness\auth\repository\UserRepository.java

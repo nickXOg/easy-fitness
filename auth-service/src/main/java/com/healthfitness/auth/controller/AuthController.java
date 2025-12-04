@@ -5,16 +5,16 @@ import com.healthfitness.auth.dto.LoginRequest;
 import com.healthfitness.auth.dto.RegisterRequest;
 import com.healthfitness.auth.dto.UserDTO;
 import com.healthfitness.auth.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {

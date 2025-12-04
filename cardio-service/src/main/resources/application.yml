@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: cardio-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cardio_service
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        cardio-workout-created-out-0:
+          destination: cardio-workout-created
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8002

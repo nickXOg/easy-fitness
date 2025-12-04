@@ -21,6 +21,7 @@
         <module>auth-service</module>
         <module>api-gateway</module>
         <module>eureka-server</module>
+        <module>cardio-service</module>
     </modules>
 
     <dependencyManagement>

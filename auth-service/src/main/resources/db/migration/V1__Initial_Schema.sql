@@ -1,5 +1,7 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE users (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     first_name VARCHAR(255),
@@ -10,13 +12,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE roles (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(20)
 );
 
 CREATE TABLE user_roles (
-    user_id BIGINT REFERENCES users(id),
-    role_id INT REFERENCES roles(id),
+    user_id UUID REFERENCES users(id),
+    role_id UUID REFERENCES roles(id),
     PRIMARY KEY (user_id, role_id)
 );
 

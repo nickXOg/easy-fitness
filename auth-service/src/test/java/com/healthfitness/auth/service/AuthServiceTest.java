@@ -3,7 +3,6 @@ package com.healthfitness.auth.service;
 import com.healthfitness.auth.dto.RegisterRequest;
 import com.healthfitness.auth.dto.UserDTO;
 import com.healthfitness.auth.entity.Role;
-import com.healthfitness.auth.entity.User;
 import com.healthfitness.auth.repository.RoleRepository;
 import com.healthfitness.auth.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,9 @@ class AuthServiceTest {
 
         when(userRepository.existsByEmail(any())).thenReturn(false);
         when(passwordEncoder.encode(any())).thenReturn("encodedPassword");
-        when(roleRepository.findByName(Role.ERole.ROLE_USER)).thenReturn(Optional.of(new Role(1, Role.ERole.ROLE_USER)));
+        Role userRole = new Role();
+        userRole.setName(Role.ERole.ROLE_USER);
+        when(roleRepository.findByName(Role.ERole.ROLE_USER)).thenReturn(Optional.of(userRole));
         when(userRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
         UserDTO result = authService.registerUser(registerRequest);
