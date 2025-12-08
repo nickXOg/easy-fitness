@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-04T13:43:42+0400",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 20.0.2 (Oracle Corporation)"
+    date = "2025-12-06T12:28:23+0400",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class CardioWorkoutMapperImpl implements CardioWorkoutMapper {
@@ -63,10 +63,17 @@ public class CardioWorkoutMapperImpl implements CardioWorkoutMapper {
     }
 
     private UUID entityWorkoutTypeId(CardioWorkout cardioWorkout) {
+        if ( cardioWorkout == null ) {
+            return null;
+        }
         WorkoutType workoutType = cardioWorkout.getWorkoutType();
         if ( workoutType == null ) {
             return null;
         }
-        return workoutType.getId();
+        UUID id = workoutType.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 }

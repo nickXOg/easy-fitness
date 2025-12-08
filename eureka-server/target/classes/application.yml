@@ -2,12 +2,28 @@ spring:
   application:
     name: eureka-server
 
+server:
+  port: 8761
+
+# Конфигурация Eureka Server
 eureka:
+  instance:
+    hostname: localhost
   client:
     register-with-eureka: false
     fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
-    wait-time-in-ms-for-sync: 1000
+    response-cache-update-interval-ms: 30000
+    response-cache-auto-expiration-in-seconds: 180
 
-server:
-  port: 8761
+# Настройки для мониторинга
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true

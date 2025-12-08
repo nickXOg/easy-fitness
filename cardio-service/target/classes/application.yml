@@ -1,3 +1,6 @@
+server:
+  port: 8002
+
 spring:
   application:
     name: cardio-service
@@ -19,11 +22,17 @@ spring:
       bindings:
         cardio-workout-created-out-0:
           destination: cardio-workout-created
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/master
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
 
-server:
-  port: 8002
+

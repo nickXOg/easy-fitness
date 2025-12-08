@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/cardio_service
+    username: postgres
+    password: mysecretpassword
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:29092
+      bindings:
+        cardio-workout-created-out-0:
+          destination: cardio-workout-created
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/master
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
