@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="cardio_service@localhost" uuid="d8036b80-e9e2-4f1c-bd8c-b6c4ca31d7d5">
+    <data-source source="LOCAL" name="cardio_service@localhost" uuid="dbfbc204-fb7d-4e33-8202-246d322a02f2">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
