@@ -24,9 +24,20 @@ spring:
           destination: cardio-workout-created
   security:
     oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: cardio-service
+            client-secret: Vf6F0kcyu6riJXa3VUfsRyNsUit9qqPV
+            client-name: cardio-service
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/master
+          issuer-uri: http://localhost:8080/realms/easy-fitness
 
 eureka:
   client:
@@ -34,5 +45,10 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 

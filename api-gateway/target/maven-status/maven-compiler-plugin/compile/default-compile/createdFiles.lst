@@ -1,2 +1,3 @@
+com\healthfitness\gateway\config\KeycloakJwtAuthenticationConverter.class
 com\healthfitness\gateway\config\SecurityConfig.class
 com\healthfitness\gateway\ApiGatewayApplication.class
