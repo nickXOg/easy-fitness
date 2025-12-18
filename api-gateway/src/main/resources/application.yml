@@ -9,7 +9,7 @@ spring:
           keycloak:
             provider: keycloak
             client-id: easy-fitness
-            client-secret: i16P483VCvz4MInQl5t06K60bIfA5WG9
+            client-secret: WlBKuxP96lvgf5LA2FaLNTk48HOGQ9xK
             client-name: easy-fitness
             authorization-grant-type: authorization_code
             scope: openid, profile, email
@@ -90,7 +90,8 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
+    hostname: localhost
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     # Health check URL для Eureka
     health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health

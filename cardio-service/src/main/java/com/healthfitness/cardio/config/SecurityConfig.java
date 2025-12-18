@@ -12,7 +12,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/cardio/").hasAuthority("ROLE_cardio_service_internal_access")
+                        .requestMatchers("/api/cardio/**")
+                        .hasAnyAuthority("ROLE_cardio_service_internal_access", "ROLE_easy-fitness.admin", "ROLE_easy-fitness.user")
                         .anyRequest().denyAll()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

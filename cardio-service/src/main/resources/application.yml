@@ -47,8 +47,34 @@ eureka:
     register-with-eureka: true
 
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
     hostname: localhost
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+logging:
+  level:
+    # Spring Security OAuth2 полная отладка
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.security.oauth2.server.resource: TRACE
+
+
+    # JWT валидация и claims
+    org.springframework.security.oauth2.jwt: TRACE
+    org.springframework.security.oauth2.server.resource.authentication: TRACE
+
+    # Keycloak/JWT детали
+    org.keycloak: DEBUG
+
+    # HTTP запросы с токенами (осторожно в проде)
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.http: DEBUG
+    org.springframework.security.authorization: TRACE
+    org.springframework.security.web.access: TRACE
+    org.springframework.security.web.FilterChainProxy: TRACE
+    org.springframework.security.oauth2.server.resource.web: TRACE
+  # Дополнительно для Keycloak adapter
+
+
 
 
