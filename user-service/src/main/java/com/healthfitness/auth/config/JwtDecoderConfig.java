@@ -10,6 +10,6 @@ public class JwtDecoderConfig {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/realms/master/protocol/openid-connect/certs").build();
+        return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/realms/easy-fitness/protocol/openid-connect/certs").build();
     }
 }

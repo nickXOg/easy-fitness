@@ -46,6 +46,10 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    volumes:
+      - ./keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json
     ports:
       - "8080:8080"
     networks:

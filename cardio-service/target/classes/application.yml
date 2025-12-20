@@ -29,7 +29,7 @@ spring:
           keycloak:
             provider: keycloak
             client-id: cardio-service
-            client-secret: Vf6F0kcyu6riJXa3VUfsRyNsUit9qqPV
+            client-secret: DRpWeBLSoi3L2iwOYvMDUhKebOi2HQsn
             client-name: cardio-service
             authorization-grant-type: authorization_code
             scope: openid, profile, email

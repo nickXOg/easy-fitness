@@ -13,7 +13,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/cardio/**")
-                        .hasAnyAuthority("ROLE_cardio_service_internal_access", "ROLE_easy-fitness.admin", "ROLE_easy-fitness.user")
+                        .hasAnyAuthority("cardio_service_internal_access", "easy-fitness.admin", "easy-fitness.user")
                         .anyRequest().denyAll()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
