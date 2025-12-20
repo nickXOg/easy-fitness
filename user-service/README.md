@@ -95,8 +95,18 @@ mvn test
 
 ## API Endpoints
 
+### Authentication Endpoints
 - `POST /api/auth/register` - Регистрация нового пользователя
 - `POST /api/auth/login` - Вход пользователя
+
+### User Management Endpoints
+- `GET /api/users/me` - Get current user information
+
+### Profile Management Endpoints
+- `GET /api/profile/me` - Get current user profile
+- `PUT /api/profile/me` - Update current user profile
+- `GET /api/profile/{id}` - Get user profile by ID
+- `GET /api/profile/by-email/{email}` - Get user profile by email
 
 ## Конфигурация
 

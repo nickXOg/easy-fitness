@@ -1,3 +1,7 @@
+server:
+  port: 8000
+
+
 spring:
   application:
     name: api-gateway
@@ -8,19 +12,28 @@ spring:
         registration:
           keycloak:
             provider: keycloak
-            client-id: easy-fitness
-            client-secret: WlBKuxP96lvgf5LA2FaLNTk48HOGQ9xK
-            client-name: easy-fitness
+            client-id: api-gateway
+            client-secret: Iq02l78eUyemJcPO7JZAwSKMoY7uwjb3
+            client-name: api-gateway
             authorization-grant-type: authorization_code
+            scope: openid, profile, email
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
             scope: openid, profile, email
         provider:
           keycloak:
             issuer-uri: http://localhost:8080/realms/easy-fitness
             token-uri: http://localhost:8080/realms/easy-fitness/protocol/openid-connect/token
+          google:
+            issuer-uri: https://accounts.google.com
 
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/easy-fitness
+
+
 
 
   cloud:
@@ -98,6 +111,25 @@ eureka:
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}
 
+logging:
+  level:
+    # Spring Security OAuth2 полная отладка
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.security.oauth2.server.resource: TRACE
 
-server:
-  port: 8000
+
+    # JWT валидация и claims
+    org.springframework.security.oauth2.jwt: TRACE
+    org.springframework.security.oauth2.server.resource.authentication: TRACE
+
+    # Keycloak/JWT детали
+    org.keycloak: DEBUG
+
+    # HTTP запросы с токенами (осторожно в проде)
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.http: DEBUG
+    org.springframework.security.authorization: TRACE
+    org.springframework.security.web.access: TRACE
+    org.springframework.security.web.FilterChainProxy: TRACE
+    org.springframework.security.oauth2.server.resource.web: TRACE
