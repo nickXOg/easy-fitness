@@ -24,9 +24,20 @@ spring:
           destination: cardio-workout-created
   security:
     oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: cardio-service
+            client-secret: DRpWeBLSoi3L2iwOYvMDUhKebOi2HQsn
+            client-name: cardio-service
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/master
+          issuer-uri: http://localhost:8080/realms/easy-fitness
 
 eureka:
   client:
@@ -34,8 +45,36 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+
   instance:
-    hostname: localhost
     prefer-ip-address: false
-    instance-id: ${spring.application.name}:${server.port}:${random.int}
+    hostname: localhost
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+logging:
+  level:
+    # Spring Security OAuth2 полная отладка
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.security.oauth2.server.resource: TRACE
+
+
+    # JWT валидация и claims
+    org.springframework.security.oauth2.jwt: TRACE
+    org.springframework.security.oauth2.server.resource.authentication: TRACE
+
+    # Keycloak/JWT детали
+    org.keycloak: DEBUG
+
+    # HTTP запросы с токенами (осторожно в проде)
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.http: DEBUG
+    org.springframework.security.authorization: TRACE
+    org.springframework.security.web.access: TRACE
+    org.springframework.security.web.FilterChainProxy: TRACE
+    org.springframework.security.oauth2.server.resource.web: TRACE
+  # Дополнительно для Keycloak adapter
+
+
+
 

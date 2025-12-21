@@ -1,36 +1,59 @@
 package com.healthfitness.gateway.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
-import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import reactor.core.publisher.Mono;
+
 
 @Configuration
-@EnableWebFluxSecurity
+@Slf4j
 public class SecurityConfig {
-
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        return http
-                .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/api/**").permitAll()
+        http
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .authorizeExchange(auth -> auth
+                        .pathMatchers("/actuator/**").hasAuthority("easy-fitness.admin")
+                        .pathMatchers("/api/cardio/**").hasAnyAuthority("easy-fitness.admin", "easy-fitness.user")
+                        .pathMatchers("/login/**", "/oauth2/**", "/webjars/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt
-                                .jwtDecoder(jwtDecoder())  // Reactive JWT decoder
-                        )
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 )
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .build();
+                .oauth2Login(oauth2 -> {
+                });
+        return http.build();
     }
+    private Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter() {
+        JwtAuthenticationConverter delegate = new JwtAuthenticationConverter();
+        delegate.setJwtGrantedAuthoritiesConverter(new KeycloakJwtAuthenticationConverter());
 
-    @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-        return NimbusReactiveJwtDecoder.withJwkSetUri("http://localhost:8080/realms/master/protocol/openid-connect/certs").build();
+        Converter<Jwt, AbstractAuthenticationToken> converter = delegate::convert;
+
+        return jwt -> {
+            // Логируем детали JWT
+            log.info("===== ПОЛУЧЕН JWT ТОКЕН =====");
+            log.info("Значение токена: {}", jwt.getTokenValue());
+            log.info("Заголовки: {}", jwt.getHeaders());
+            log.info("Клеймы (Claims): {}", jwt.getClaims());
+            log.info("Время истечения: {}", jwt.getExpiresAt());
+            log.info("Субъект (subject): {}", jwt.getSubject());
+            log.info("Издатель (issuer): {}", jwt.getIssuer());
+            log.info("===== КОНЕЦ JWT ЛОГА =====");
+
+            // Конвертируем в токен аутентификации
+            AbstractAuthenticationToken authToken = converter.convert(jwt);
+            return Mono.just(authToken);
+        };
     }
 }
+
 
