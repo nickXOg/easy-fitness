@@ -46,7 +46,6 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Collec
             return Collections.emptyList();
         }
         return roles.stream()
-                .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -54,6 +53,6 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Collec
     private Collection<GrantedAuthority> handleGoogleToken(Jwt jwt) {
         // For Google authentication, we'll assign default roles
         // In a production system, you might want to implement custom logic here
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_easy-fitness.user"));
+        return Collections.singletonList(new SimpleGrantedAuthority("easy-fitness.user"));
     }
 }

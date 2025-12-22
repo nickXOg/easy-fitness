@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -25,10 +26,10 @@ public class UserService {
         String firstName = jwt.getClaim("given_name");
         String lastName = jwt.getClaim("family_name");
 
-        Optional<User> userOptional = userRepository.findByKeycloakId(keycloakId);
+        Optional<User> userOptional = userRepository.findByKeycloakId(UUID.fromString(keycloakId));
         User user = userOptional.orElseGet(() -> {
             User newUser = new User();
-            newUser.setKeycloakId(keycloakId);
+            newUser.setKeycloakId(UUID.fromString(keycloakId));
             newUser.setEmail(email);
             newUser.setFirstName(firstName);
             newUser.setLastName(lastName);

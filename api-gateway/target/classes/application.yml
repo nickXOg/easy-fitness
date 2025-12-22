@@ -6,6 +6,18 @@ spring:
   application:
     name: api-gateway
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+    template:
+      default-topic: userDataTopic
+
+
+
   security:
     oauth2:
       client:
@@ -32,9 +44,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/easy-fitness
-
-
-
 
   cloud:
     gateway:
@@ -116,6 +125,7 @@ logging:
     # Spring Security OAuth2 полная отладка
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
+    org.springframework.cloud.gateway: DEBUG
     org.springframework.security.oauth2.server.resource: TRACE
 
 

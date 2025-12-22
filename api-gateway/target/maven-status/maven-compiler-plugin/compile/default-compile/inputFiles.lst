@@ -1,4 +1,7 @@
 C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\config\KeycloakJwtAuthenticationConverter.java
 C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\config\SecurityConfig.java
 C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\ApiGatewayApplication.java
+C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\config\KafkaProducerConfig.java
+C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\message\UserDataMessage.java
 C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\controller\AuthController.java
+C:\Users\Nick\IdeaProjects\easy-fitness\api-gateway\src\main\java\com\healthfitness\gateway\service\UserDataPublisher.java
