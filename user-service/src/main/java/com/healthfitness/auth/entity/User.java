@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -25,7 +23,7 @@ public class User {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String keycloakId;
+    private UUID keycloakId;
 
     @Column(nullable = false, unique = true)
     private String email;
