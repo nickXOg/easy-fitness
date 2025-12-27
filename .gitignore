@@ -1,3 +1,4 @@
+
 # Maven
 target/
 pom.xml.tag
@@ -148,13 +149,11 @@ $RECYCLE.BIN/
 *~
 
 # macOS
-.DS_Store
+
 .AppleDouble
 .LSOverride
 Icon?
-._*
-.Spotlight-V100
-.Trashes
+
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 .com.apple.timemachine.supported
@@ -188,3 +187,7 @@ application-local.properties
 **/secret/
 **/config/credentials.json
 **/config/key.json
+
+.idea/
+.target/
+

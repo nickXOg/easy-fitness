@@ -1,120 +1,69 @@
-# Auth Service
+# User Service
 
-Сервис аутентификации и авторизации для Health & Fitness Platform.
+## Overview
 
-## Требования
+The User Service is a Spring Boot microservice responsible for managing user-related data and authentication within the Health & Fitness platform. It integrates with Keycloak for identity and access management, uses a PostgreSQL database for data persistence, and registers with the Eureka server for service discovery.
 
-- Java 17+
-- Maven 3.6+
-- PostgreSQL 12+
+## Prerequisites
 
-## Настройка базы данных
+Before running the service, ensure you have the following installed and running:
+-   Java 21
+-   Maven 3.x
+-   PostgreSQL
+-   Keycloak
+-   Eureka Server
 
-### 1. Установка и запуск PostgreSQL
+## Configuration
 
-Убедитесь, что PostgreSQL установлен и запущен на вашей системе.
+The service configuration is located in `src/main/resources/application.yml`. You may need to update the following properties to match your environment:
 
-### 2. Создание базы данных
+-   **Database:**
+    -   `spring.datasource.url`
+    -   `spring.datasource.username`
+    -   `spring.datasource.password`
+-   **Keycloak:**
+    -   `spring.security.oauth2.resourceserver.jwt.issuer-uri`
+-   **Eureka:**
+    -   `eureka.client.service-url.defaultZone`
 
-Подключитесь к PostgreSQL и создайте базу данных:
+The service uses Flyway for database migrations. Schema definitions can be found in `src/main/resources/db/migration`.
 
-```sql
-CREATE DATABASE auth_service;
-```
+## How to Build and Run
 
-### 3. Настройка пользователя и пароля
+1.  **Build the project:**
+    ```bash
+    mvn clean install
+    ```
 
-По умолчанию приложение использует:
-- **Username**: `postgres`
-- **Password**: `password`
-- **Database**: `auth_service`
+2.  **Run the application:**
+    You can run the service using the Spring Boot Maven plugin:
+    ```bash
+    mvn spring-boot:run
+    ```
+    Alternatively, you can run the packaged JAR file:
+    ```bash
+    java -jar target/user-service-1.0.0-SNAPSHOT.jar
+    ```
 
-#### Если вы получаете ошибку "password authentication failed":
+## API Documentation
 
-**Вариант 1**: Измените пароль в `application.yml` на ваш реальный пароль PostgreSQL:
+The service exposes the following RESTful endpoints:
 
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/auth_service
-    username: postgres
-    password: ваш_реальный_пароль
-```
+### User Endpoints
 
-**Вариант 2**: Установите пароль `password` для пользователя postgres:
-
-```sql
-ALTER USER postgres WITH PASSWORD 'password';
-```
-
-**Вариант 3**: Создайте нового пользователя с паролем `password`:
-
-```sql
-CREATE USER postgres WITH PASSWORD 'password';
-ALTER USER postgres CREATEDB;
-```
-
-### 4. Альтернативный способ: создание пользователя
-
-Если вы хотите создать отдельного пользователя для приложения:
-
-```sql
-CREATE USER auth_user WITH PASSWORD 'your_password';
-CREATE DATABASE auth_service OWNER auth_user;
-GRANT ALL PRIVILEGES ON DATABASE auth_service TO auth_user;
-```
-
-Затем обновите `application.yml` с новыми учетными данными.
-
-## Запуск приложения
-
-### Разработка
-
-```bash
-mvn spring-boot:run
-```
-
-### Сборка
-
-```bash
-mvn clean package
-java -jar target/auth-service-1.0.0-SNAPSHOT.jar
-```
-
-## Тестирование
-
-Тесты используют H2 in-memory базу данных и не требуют PostgreSQL:
-
-```bash
-mvn test
-```
-
-## Миграции базы данных
-
-Приложение использует Flyway для управления миграциями. При первом запуске Flyway автоматически создаст необходимые таблицы из файла `src/main/resources/db/migration/V1__Initial_Schema.sql`.
-
-## API Endpoints
-
-### Authentication Endpoints
-- `POST /api/auth/register` - Регистрация нового пользователя
-- `POST /api/auth/login` - Вход пользователя
-
-### User Management Endpoints
-- `GET /api/users/me` - Get current user information
-
-### Profile Management Endpoints
-- `GET /api/profile/me` - Get current user profile
-- `PUT /api/profile/me` - Update current user profile
-- `GET /api/profile/{id}` - Get user profile by ID
-- `GET /api/profile/by-email/{email}` - Get user profile by email
-
-## Конфигурация
-
-Основные настройки находятся в `src/main/resources/application.yml`.
-
-**Важно**: Перед развертыванием в production измените `jwtSecret` на безопасный случайный ключ:
-
-```bash
-openssl rand -base64 64
-```
-
+-   **Get Current User**
+    -   **URL:** `/api/users/me`
+    -   **Method:** `GET`
+    -   **Description:** Retrieves the details of the currently authenticated user. Requires a valid JWT token in the Authorization header.
+    -   **Success Response:**
+        -   **Code:** 200 OK
+        -   **Content:**
+            ```json
+            {
+              "id": "uuid-string",
+              "username": "testuser",
+              "email": "test@example.com",
+              "firstName": "Test",
+              "lastName": "User"
+            }
+            ```
