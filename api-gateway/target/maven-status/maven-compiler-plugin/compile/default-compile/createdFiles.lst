@@ -1,7 +1,0 @@
-com\healthfitness\gateway\config\KeycloakJwtAuthenticationConverter.class
-com\healthfitness\gateway\service\UserDataPublisher.class
-com\healthfitness\gateway\ApiGatewayApplication.class
-com\healthfitness\gateway\message\UserDataMessage$UserDataMessageBuilder.class
-com\healthfitness\gateway\controller\AuthController.class
-com\healthfitness\gateway\config\SecurityConfig.class
-com\healthfitness\gateway\message\UserDataMessage.class
