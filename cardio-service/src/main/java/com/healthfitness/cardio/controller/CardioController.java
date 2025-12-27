@@ -22,7 +22,7 @@ public class CardioController {
     }
 
     @GetMapping("/workouts/user/{userId}")
-    public ResponseEntity<List<CardioWorkoutDTO>> getUserWorkouts(@PathVariable Long userId) {
+    public ResponseEntity<List<CardioWorkoutDTO>> getUserWorkouts(@PathVariable("userId") Long userId) {
         List<CardioWorkoutDTO> workouts = cardioService.getWorkoutsByUserId(userId);
         return ResponseEntity.ok(workouts);
     }

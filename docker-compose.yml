@@ -39,6 +39,21 @@ services:
     networks:
       - health-fitness-net
 
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8180:8080"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "easy-fitness"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:29092"
+    networks:
+      - health-fitness-net
+
+
+
   keycloak:
     image: quay.io/keycloak/keycloak:22.0.1
     container_name: keycloak
@@ -48,8 +63,6 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-    volumes:
-      - ./keycloak-realm-config.json:/opt/keycloak/data/import/keycloak-realm-config.json
     ports:
       - "8080:8080"
     networks:
