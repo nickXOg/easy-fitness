@@ -65,10 +65,17 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     ports:
       - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
     networks:
       - health-fitness-net
 
 networks:
   health-fitness-net:
     driver: bridge
+
+volumes:
+  user_service_data:
+  cardio_service_data:
+  keycloak_data:
 

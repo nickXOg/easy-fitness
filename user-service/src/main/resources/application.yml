@@ -5,6 +5,23 @@ spring:
   application:
     name: user-service
 
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: user-service
+            client-secret: 8e6k7MDq1luLdzEgHqc9Tpj9k8uX0JwA
+            client-name: user-service
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/easy-fitness
+
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -35,11 +52,7 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
     clean-disabled: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/easy-fitness
+
 
 eureka:
   instance:
@@ -51,8 +64,17 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
+# Custom properties for Kafka topics
 kafka:
   topic:
     user-data: userDataTopic
+
+# application.yml user-service
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+
+
+
 
         
