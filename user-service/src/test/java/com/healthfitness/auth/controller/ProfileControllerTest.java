@@ -41,6 +41,9 @@ public class ProfileControllerTest {
     @MockBean
     private UserRepository userRepository;
 
+    @MockBean
+    private com.healthfitness.auth.service.UserDataPublisher userDataPublisher;
+
     @Test
     public void testGetCurrentUserProfile() throws Exception {
         UUID userId = UUID.randomUUID();
@@ -54,7 +57,7 @@ public class ProfileControllerTest {
 
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
-        mockMvc.perform(get("/api/profile/me")
+        mockMvc.perform(get("/api/users/profile/me")
                 .with(SecurityMockMvcRequestPostProcessors.jwt()
                         .jwt(jwt -> jwt.subject("test-user").claim("email", "test@example.com"))
                         .authorities(new SimpleGrantedAuthority("ROLE_easy-fitness.user"))))
@@ -80,9 +83,11 @@ public class ProfileControllerTest {
                 .dateOfBirth(LocalDate.of(1992, 8, 20))
                 .build();
 
+        UUID keycloakId = UUID.randomUUID();
         User existingUser = new User();
         existingUser.setId(userId);
         existingUser.setEmail("test@example.com");
+        existingUser.setKeycloakId(keycloakId);
 
         User updatedUser = new User();
         updatedUser.setId(userId);
@@ -90,6 +95,7 @@ public class ProfileControllerTest {
         updatedUser.setFirstName("Jane");
         updatedUser.setLastName("Smith");
         updatedUser.setDateOfBirth(LocalDate.of(1992, 8, 20));
+        updatedUser.setKeycloakId(keycloakId);
 
         UserDTO updatedUserDTO = UserDTO.builder()
                 .id(userId)
@@ -103,7 +109,7 @@ public class ProfileControllerTest {
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenReturn(updatedUser);
 
-        mockMvc.perform(put("/api/profile/me")
+        mockMvc.perform(put("/api/users/profile/me")
                 .with(SecurityMockMvcRequestPostProcessors.jwt()
                         .jwt(jwt -> jwt.subject("test-user").claim("email", "test@example.com"))
                         .authorities(new SimpleGrantedAuthority("ROLE_easy-fitness.user")))
@@ -137,7 +143,7 @@ public class ProfileControllerTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
-        mockMvc.perform(get("/api/profile/" + userId)
+        mockMvc.perform(get("/api/users/profile/" + userId)
                 .with(SecurityMockMvcRequestPostProcessors.jwt()
                         .jwt(jwt -> jwt.subject("test-user").claim("email", "test@example.com"))
                         .authorities(new SimpleGrantedAuthority("ROLE_easy-fitness.user"))))
@@ -169,7 +175,7 @@ public class ProfileControllerTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
-        mockMvc.perform(get("/api/profile/by-email/" + email)
+        mockMvc.perform(get("/api/users/profile/by-email/" + email)
                 .with(SecurityMockMvcRequestPostProcessors.jwt()
                         .jwt(jwt -> jwt.subject("test-user").claim("email", "test@example.com"))
                         .authorities(new SimpleGrantedAuthority("ROLE_easy-fitness.user"))))
