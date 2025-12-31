@@ -160,7 +160,7 @@ class CardioServiceTest {
         entity2.setStartTime(LocalDateTime.now().plusDays(1));
 
         List<CardioWorkout> entities = Arrays.asList(entity1, entity2);
-        when(cardioWorkoutRepository.findByUserId(1L)).thenReturn(entities);
+        when(cardioWorkoutRepository.findAllByUserIdWithWorkoutType(1L)).thenReturn(entities);
 
         CardioWorkoutDTO dto1 = new CardioWorkoutDTO();
         dto1.setId(workoutId1);
@@ -193,7 +193,7 @@ class CardioServiceTest {
         assertEquals(workoutId1, result.get(0).getId());
         assertEquals(workoutId2, result.get(1).getId());
 
-        verify(cardioWorkoutRepository).findByUserId(1L);
+        verify(cardioWorkoutRepository).findAllByUserIdWithWorkoutType(1L);
         verify(mapper).cardioWorkoutToDto(entity1);
         verify(mapper).cardioWorkoutToDto(entity2);
     }

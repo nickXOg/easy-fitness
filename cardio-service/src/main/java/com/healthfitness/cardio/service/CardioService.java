@@ -42,7 +42,8 @@ public class CardioService {
     }
 
     public List<CardioWorkoutDTO> getWorkoutsByUserId(Long userId) {
-        return cardioWorkoutRepository.findByUserId(userId).stream()
+        // ⚡ Bolt: Switched to the optimized findAllByUserIdWithWorkoutType to prevent N+1 queries.
+        return cardioWorkoutRepository.findAllByUserIdWithWorkoutType(userId).stream()
                 .map(mapper::cardioWorkoutToDto)
                 .toList();
     }
