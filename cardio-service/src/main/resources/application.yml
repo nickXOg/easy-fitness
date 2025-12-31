@@ -22,6 +22,7 @@ spring:
       bindings:
         cardio-workout-created-out-0:
           destination: cardio-workout-created
+
   security:
     oauth2:
       client:
