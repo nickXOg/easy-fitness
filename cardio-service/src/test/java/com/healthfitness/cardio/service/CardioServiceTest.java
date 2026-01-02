@@ -1,14 +1,14 @@
 package com.healthfitness.cardio.service;
 
-import com.healthfitness.cardio.dto.CardioWorkoutDTO;
-import com.healthfitness.cardio.entity.CardioWorkout;
-import com.healthfitness.cardio.entity.WorkoutType;
+import com.healthfitness.cardio.kafka.CardioEventPublisher;
+import com.healthfitness.cardio.model.dto.CardioWorkoutDTO;
+import com.healthfitness.cardio.model.entity.CardioWorkout;
+import com.healthfitness.cardio.model.entity.WorkoutType;
 import com.healthfitness.cardio.mapper.CardioWorkoutMapper;
 import com.healthfitness.cardio.repository.CardioWorkoutRepository;
 import com.healthfitness.cardio.repository.WorkoutTypeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;

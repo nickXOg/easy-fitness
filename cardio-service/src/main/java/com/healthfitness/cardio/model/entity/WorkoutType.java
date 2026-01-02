@@ -1,4 +1,4 @@
-package com.healthfitness.cardio.entity;
+package com.healthfitness.cardio.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

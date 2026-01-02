@@ -1,4 +1,4 @@
-package com.healthfitness.cardio.dto;
+package com.healthfitness.cardio.model.dto;
 
 import lombok.Data;
 

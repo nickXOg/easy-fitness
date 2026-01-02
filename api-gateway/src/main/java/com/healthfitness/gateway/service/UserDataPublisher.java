@@ -15,7 +15,7 @@ public class UserDataPublisher {
 
     private final KafkaTemplate<String, UserDataMessage> kafkaTemplate;
 
-    @Value("${kafka.topic.user-data:userDataTopic}")
+    @Value("${spring.kafka.template.default-topic}")
     private String userDataTopic;
 
     public void publishUserData(UserDataMessage userData) {

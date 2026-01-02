@@ -1,6 +1,6 @@
 package com.healthfitness.gateway.integration;
 
-import com.healthfitness.gateway.config.KeycloakJwtAuthenticationConverter;
+import com.healthfitness.gateway.keycloak.KeycloakJwtAuthenticationConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -10,14 +10,14 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Integration test to verify Google authentication token processing
+ * Интеграционные тесты для проверки google auth.
  */
-public class GoogleAuthenticationTest {
+class GoogleAuthenticationTest {
 
     private final KeycloakJwtAuthenticationConverter jwtConverter = new KeycloakJwtAuthenticationConverter();
 
     @Test
-    public void testGoogleTokenProcessing() {
+    void testGoogleTokenProcessing() {
         // Create a mock Google JWT token with required claims
         Jwt googleToken = Jwt.withTokenValue("mock-google-token")
                 .header("alg", "RS256")
@@ -39,7 +39,7 @@ public class GoogleAuthenticationTest {
     }
 
     @Test
-    public void testKeycloakTokenProcessing() {
+    void testKeycloakTokenProcessing() {
         // Create a mock Keycloak JWT token with roles
         Jwt keycloakToken = Jwt.withTokenValue("mock-keycloak-token")
                 .header("alg", "RS256")

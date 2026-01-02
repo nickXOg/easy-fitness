@@ -1,8 +1,9 @@
 package com.healthfitness.gateway.config;
 
+import com.healthfitness.gateway.client.UserServiceClient;
+import com.healthfitness.gateway.keycloak.KeycloakJwtAuthenticationConverter;
 import com.healthfitness.gateway.message.UserDataMessage;
 import com.healthfitness.gateway.service.UserDataPublisher;
-import com.healthfitness.gateway.client.UserServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,6 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 );
-        // Removed .oauth2Login(oauth2 -> {}) as it conflicts with resource server configuration
         return http.build();
     }
 
@@ -54,23 +54,13 @@ public class SecurityConfig {
     private Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter() {
         JwtAuthenticationConverter delegate = new JwtAuthenticationConverter();
         delegate.setJwtGrantedAuthoritiesConverter(new KeycloakJwtAuthenticationConverter());
-        Converter<Jwt, AbstractAuthenticationToken> converter = delegate::convert;
         return jwt -> {
-            // Логируем детали JWT
-            log.info("===== ПОЛУЧЕН JWT ТОКЕН =====");
-            log.info("Значение токена: {}", jwt.getTokenValue());
-            log.info("Заголовки: {}", jwt.getHeaders());
-            log.info("Клеймы (Claims): {}", jwt.getClaims());
-            log.info("Время истечения: {}", jwt.getExpiresAt());
-            log.info("Субъект (subject): {}", jwt.getSubject());
-            log.info("Издатель (issuer): {}", jwt.getIssuer());
-            log.info("===== КОНЕЦ JWT ЛОГА =====");
             // Проверяем существование пользователя и отправляем данные в Kafka
             log.info("Checking if user exists with keycloakId: {}", jwt.getSubject());
             return userServiceClient.doesUserExist(jwt.getSubject())
                     .flatMap(userExists -> {
                         log.info("User exists check result: {}", userExists);
-                        if (!userExists) {
+                        if (Boolean.FALSE.equals(userExists)) {
                             // Publish user data to Kafka
                             log.info("User does not exist, publishing user data to Kafka for keycloakId: {}", jwt.getSubject());
                             try {
@@ -88,19 +78,17 @@ public class SecurityConfig {
                                     } catch (Exception e) {
                                         log.error("Error publishing user data to Kafka", e);
                                     }
-                                }).then(Mono.just(converter.convert(jwt)));
+                                }).then(Mono.just((delegate).convert(jwt)));
                             } catch (Exception e) {
                                 log.error("Error building user data message", e);
-                                return Mono.just(converter.convert(jwt));
+                                return Mono.just((delegate).convert(jwt));
                             }
                         } else {
                             // Пользователь существует, просто конвертируем JWT
                             log.info("User exists, skipping Kafka publish for keycloakId: {}", jwt.getSubject());
-                            return Mono.just(converter.convert(jwt));
+                            return Mono.just((delegate).convert(jwt));
                         }
                     });
         };
     }
 }
-
-

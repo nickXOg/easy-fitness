@@ -30,8 +30,4 @@ public class UserServiceClient {
                 )
                 .onErrorReturn(false);
     }
-
-
-
-
 }

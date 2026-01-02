@@ -1,4 +1,4 @@
-package com.healthfitness.cardio.config;
+package com.healthfitness.cardio.keycloak;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;

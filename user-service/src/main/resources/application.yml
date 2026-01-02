@@ -67,7 +67,7 @@ eureka:
 # Custom properties for Kafka topics
 kafka:
   topic:
-    user-data: userDataTopic
+    user-data: user-data-topic
 
 # application.yml user-service
 logging:

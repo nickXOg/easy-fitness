@@ -1,7 +1,7 @@
-package com.healthfitness.cardio.service;
+package com.healthfitness.cardio.kafka;
 
-import com.healthfitness.cardio.entity.CardioWorkout;
-import com.healthfitness.cardio.event.CardioWorkoutEvent;
+import com.healthfitness.cardio.model.entity.CardioWorkout;
+import com.healthfitness.cardio.model.event.CardioWorkoutEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;

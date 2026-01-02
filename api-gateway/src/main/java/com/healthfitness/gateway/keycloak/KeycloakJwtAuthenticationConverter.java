@@ -1,4 +1,4 @@
-package com.healthfitness.gateway.config;
+package com.healthfitness.gateway.keycloak;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +33,6 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Collec
             // Try to get roles from the 'realm_access' claim
             Object realmAccessObj = jwt.getClaim("realm_access");
             if (realmAccessObj instanceof Map) {
-                @SuppressWarnings("unchecked")
                 Map<String, Object> realmAccess = (Map<String, Object>) realmAccessObj;
                 Object rolesObj = realmAccess.get("roles");
                 if (rolesObj instanceof List) {

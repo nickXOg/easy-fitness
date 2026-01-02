@@ -1,4 +1,4 @@
-package com.healthfitness.cardio.event;
+package com.healthfitness.cardio.model.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

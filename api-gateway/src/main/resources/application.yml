@@ -14,7 +14,7 @@ spring:
       properties:
         spring.json.add.type.headers: false
     template:
-      default-topic: userDataTopic
+      default-topic: user-data-topic
 
 
 

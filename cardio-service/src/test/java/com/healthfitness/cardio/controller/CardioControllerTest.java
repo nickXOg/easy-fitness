@@ -1,7 +1,7 @@
 package com.healthfitness.cardio.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.healthfitness.cardio.dto.CardioWorkoutDTO;
+import com.healthfitness.cardio.model.dto.CardioWorkoutDTO;
 import com.healthfitness.cardio.service.CardioService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

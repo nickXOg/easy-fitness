@@ -1,6 +1,6 @@
 package com.healthfitness.cardio.repository;
 
-import com.healthfitness.cardio.entity.WorkoutType;
+import com.healthfitness.cardio.model.entity.WorkoutType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.healthfitness.gateway.config;
 
+import com.healthfitness.gateway.keycloak.KeycloakJwtAuthenticationConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;

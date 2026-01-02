@@ -1,6 +1,6 @@
 package com.healthfitness.cardio.controller;
 
-import com.healthfitness.cardio.dto.CardioWorkoutDTO;
+import com.healthfitness.cardio.model.dto.CardioWorkoutDTO;
 import com.healthfitness.cardio.service.CardioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cardio")
 @RequiredArgsConstructor
-public class CardioController {
+public class                        CardioController {
 
     private final CardioService cardioService;
 
